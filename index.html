@@ -3,20 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates</title>
+    <title>My Certificates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .intro p {
+            font-size: 1.15rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .category {
+            margin-bottom: 3.5rem;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .category-icon {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .certificate-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .certificate-card:hover {
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: #c7d2fe;
+        }
+        
+        .certificate-preview {
+            height: 180px;
+            background-color: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .certificate-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .certificate-card:hover .certificate-preview img {
+            transform: scale(1.05);
+        }
+        
+        .certificate-info {
+            padding: 1.5rem;
+        }
+        
+        .certificate-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .certificate-details {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .certificate-details i {
+            margin-right: 0.5rem;
+            color: #4f46e5;
+        }
+        
+        .certificate-link {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .certificate-link:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .certificate-link i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .pdf-badge {
+            background-color: #fef2f2;
+            color: #dc2626;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .pdf-badge i {
+            margin-right: 0.3rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-links a {
+            color: #4f46e5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* For the PDF certificate */
+        .pdf-preview {
+            background-color: #fee2e2;
+            color: #dc2626;
+            font-size: 3rem;
+        }
+    </style>
 </head>
 <body>
-       <h1>Manus</h1>
-       <a href="https://rutaab3.github.io/certificates/1.png">Manus1</a>
-       <a href="https://rutaab3.github.io/certificates/2.png">Manus2</a>
-       <a href="https://rutaab3.github.io/certificates/3.png">Manus3</a>
-
-       <h1>Udemy</h1>
-       <a href="https://rutaab3.github.io/certificates/stitch.jpg">Stitch</a>
-       <a href="https://rutaab3.github.io/certificates/php.jpg">Manus2</a>
-       <!-- <a href="https://rutaab3.github.io/certificates/3.png">Manus3</a> -->
-
-       <h1>Sports</h1>
-       <a href="https://rutaab3.github.io/certificates/national.pdf">National | 2025 | Karachi</a>
+    <header>
+        <div class="container">
+            <h1>My Certificates</h1>
+            <p>A collection of my professional certifications, achievements, and recognitions</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="intro">
+            <p>This portfolio showcases certificates I've earned through various programs, courses, and competitions. Each represents a milestone in my learning journey and professional development.</p>
+        </div>
+        
+        <!-- Manus Certificates Section -->
+        <section class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h2 class="category-title">Manus Certificates</h2>
+            </div>
+            
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-preview">
+                        <img src="https://rutaab3.github.io/certificates/1.png" alt="Manus Certificate 1">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">Manus Certificate 1</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2024</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/1.png" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-preview">
+                        <img src="https://rutaab3.github.io/certificates/2.png" alt="Manus Certificate 2">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">Manus Certificate 2</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2024</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/2.png" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-preview">
+                        <img src="https://rutaab3.github.io/certificates/3.png" alt="Manus Certificate 3">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">Manus Certificate 3</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2024</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/3.png" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Udemy Certificates Section -->
+        <section class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="category-title">Udemy Certificates</h2>
+            </div>
+            
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-preview">
+                        <img src="https://rutaab3.github.io/certificates/stitch.jpg" alt="Stitch Course Certificate">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">Stitch Course</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2024</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/stitch.jpg" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-preview">
+                        <img src="https://rutaab3.github.io/certificates/php.jpg" alt="PHP Course Certificate">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">PHP Course</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2024</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/php.jpg" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sports Certificates Section -->
+        <section class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="category-title">Sports Certificates</h2>
+            </div>
+            
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-preview pdf-preview">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-name">National Competition</h3>
+                        <div class="certificate-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Issued: 2025</span>
+                            <span class="pdf-badge">
+                                <i class="fas fa-file-pdf"></i>
+                                PDF
+                            </span>
+                        </div>
+                        <div class="certificate-details">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Karachi, Pakistan</span>
+                        </div>
+                        <a href="https://rutaab3.github.io/certificates/national.pdf" class="certificate-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="container">
+        <p>© 2024 My Certificate Portfolio. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://github.com/rutaab3" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple hover effect enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const certificateCards = document.querySelectorAll('.certificate-card');
+            
+            certificateCards.forEach(card => {
+                // Add a data attribute for the original image source
+                const img = card.querySelector('img');
+                if (img) {
+                    img.setAttribute('data-src', img.src);
+                }
+                
+                // Add click effect
+                card.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('certificate-link')) {
+                        const link = this.querySelector('.certificate-link');
+                        if (link) {
+                            window.open(link.href, '_blank');
+                        }
+                    }
+                });
+            });
+            
+            // Set current year in footer
+            const yearSpan = document.querySelector('footer p');
+            if (yearSpan) {
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
+            }
+        });
+    </script>
 </body>
 </html>
